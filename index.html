@@ -56,6 +56,13 @@
     .animate-float {
         animation: float-slow 4s infinite ease-in-out;
     }
+    
+    /* Smooth Shaded Masking untuk Efek Reveal yang Lembut */
+    #mask-layer {
+        mask-image: radial-gradient(circle 240px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 30%, transparent 100%);
+        -webkit-mask-image: radial-gradient(circle 240px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 30%, transparent 100%);
+        transition: mask-image 0.1s ease-out, -webkit-mask-image 0.1s ease-out;
+    }
 </style>
 
 <div class="bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden selection:bg-neonBlue selection:text-white transition-colors duration-500" id="body-wrapper">
@@ -104,7 +111,7 @@
         <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">Contact Me</a>
     </div>
 
-    <!-- 3. HERO SECTION (FULLSCREEN BACKGROUND IMMERSIVE) -->
+    <!-- 3. HERO SECTION (FULLSCREEN BACKGROUND IMMERSIVE WITH SHADED REVEAL) -->
     <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-28 pb-12 relative overflow-hidden">
         
         <!-- DUAL IMAGE FULLSCREEN BACKGROUND REVEAL -->
@@ -115,8 +122,8 @@
                 <div class="absolute inset-0 bg-slate-950/50"></div>
             </div>
             
-            <!-- Layer Atas: Berwarna (Di-masking pakai kursor) -->
-            <div id="mask-layer" class="absolute inset-0 w-full h-full overflow-hidden select-none" style="clip-path: circle(0px at 50% 50%); transition: clip-path 0.1s ease-out;">
+            <!-- Layer Atas: Berwarna dengan Shaded Radial Gradient Mask -->
+            <div id="mask-layer" class="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
                 <img src="color.png" alt="Muz Color" class="w-full h-full object-cover">
             </div>
         </div>
@@ -420,7 +427,7 @@
         }
     }
 
-    // 5. Fullscreen Dual Image B&W to Color Hover & Touch Reveal Mask Tracking
+    // 5. Smooth Shaded Radial Gradient Hover & Touch Reveal Mask Tracking
     window.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('reveal-container');
         const maskLayer = document.getElementById('mask-layer');
@@ -430,8 +437,9 @@
                 const rect = container.getBoundingClientRect();
                 const x = clientX - rect.left;
                 const y = clientY - rect.top;
-                // Radius mask 280px agar pas menutupi area kursor di mode fullscreen
-                maskLayer.style.clipPath = `circle(280px at ${x}px ${y}px)`;
+                
+                maskLayer.style.setProperty('--mouse-x', `${x}px`);
+                maskLayer.style.setProperty('--mouse-y', `${y}px`);
             }
 
             container.addEventListener('mousemove', (e) => {
@@ -445,11 +453,13 @@
             }, {passive: true});
 
             container.addEventListener('mouseleave', () => {
-                maskLayer.style.clipPath = `circle(0px at 50% 50%)`;
+                maskLayer.style.setProperty('--mouse-x', `-500px`);
+                maskLayer.style.setProperty('--mouse-y`, `-500px`);
             });
 
             container.addEventListener('touchend', () => {
-                maskLayer.style.clipPath = `circle(0px at 50% 50%)`;
+                maskLayer.style.setProperty('--mouse-x', `-500px`);
+                maskLayer.style.setProperty('--mouse-y`, `-500px`);
             });
         }
     });
