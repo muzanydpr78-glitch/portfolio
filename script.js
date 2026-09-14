@@ -31,9 +31,13 @@ const translations = {
         cat_multi: "Multiverse UI",
         cat_ai: "AI & Neural",
         cat_mob: "Mobile App",
+        p1_title: "Multiverse Portal Engine",
         p1_desc: "3D web portal animation system featuring space-time distortion using GSAP.",
+        p2_title: "Cyber Neural Core",
         p2_desc: "AI data intelligence analytics dashboard with glassmorphism effects and real-time charts.",
+        p3_title: "Quantum Wallet OS",
         p3_desc: "Mobile crypto wallet application with futuristic UI and high-level quantum encryption.",
+        p4_title: "Stellar Zero Workspace",
         p4_desc: "Cloud-based virtual workspace environment with cursor gestures and space theme.",
         btn_detail: "Lihat Detail →",
         skills_badge: "Arsenal // 03",
@@ -53,7 +57,7 @@ const translations = {
         modal_status: "Status: Deployed & Active",
         modal_overview: "Project Overview",
         modal_tech: "Tech Stack Used",
-        modal_close: "Close Archive"
+        btn_back_proj: "← Back to Projects List"
     },
     id: {
         loading: "Menginisialisasi Portal Multiverse...",
@@ -86,9 +90,13 @@ const translations = {
         cat_multi: "Multiverse UI",
         cat_ai: "AI & Neural",
         cat_mob: "Mobile App",
+        p1_title: "Multiverse Portal Engine",
         p1_desc: "Sistem animasi portal 3D berbasis web dengan distorsi ruang dan waktu menggunakan GSAP.",
+        p2_title: "Cyber Neural Core",
         p2_desc: "Dashboard analisis data kecerdasan buatan dengan efek glassmorphism dan grafik real-time.",
+        p3_title: "Quantum Wallet OS",
         p3_desc: "Aplikasi dompet kripto seluler dengan antarmuka futuristik dan enkripsi kuantum tingkat tinggi.",
+        p4_title: "Stellar Zero Workspace",
         p4_desc: "Lingkungan kerja virtual berbasis cloud dengan gestur kursor dan tema luar angkasa.",
         btn_detail: "Lihat Detail →",
         skills_badge: "Arsenal // 03",
@@ -108,15 +116,44 @@ const translations = {
         modal_status: "Status: Aktif & Ter-deploy",
         modal_overview: "Ringkasan Proyek",
         modal_tech: "Teknologi yang Digunakan",
-        modal_close: "Tutup Arsip"
+        btn_back_proj: "← Kembali ke Daftar Proyek"
     }
 };
 
 let currentLang = 'en';
 
+// Database Proyek untuk Halaman Detail Tunggal
+const projectsData = {
+    '1': {
+        titleKey: 'p1_title',
+        descKey: 'p1_desc',
+        tech: 'React • Tailwind • GSAP',
+        icon: '🌌'
+    },
+    '2': {
+        titleKey: 'p2_title',
+        descKey: 'p2_desc',
+        tech: 'Next.js • Tailwind • ChartJS',
+        icon: '🤖'
+    },
+    '3': {
+        titleKey: 'p3_title',
+        descKey: 'p3_desc',
+        tech: 'React Native • Web3',
+        icon: '📱'
+    },
+    '4': {
+        titleKey: 'p4_title',
+        descKey: 'p4_desc',
+        tech: 'Three.js • Vite • Tailwind',
+        icon: '🛸'
+    }
+};
+
 function toggleLanguage() {
     currentLang = currentLang === 'en' ? 'id' : 'en';
-    document.getElementById('lang-btn').innerText = currentLang.toUpperCase();
+    const langBtn = document.getElementById('lang-btn');
+    if (langBtn) langBtn.innerText = currentLang.toUpperCase();
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -125,33 +162,22 @@ function toggleLanguage() {
         }
     });
 
-    document.getElementById('inp-name').placeholder = currentLang === 'en' ? 'Your Name' : 'Nama Anda';
-    document.getElementById('inp-email').placeholder = currentLang === 'en' ? 'Your Email' : 'Email Anda';
-    document.getElementById('inp-msg').placeholder = currentLang === 'en' ? 'Your Message' : 'Pesan Anda';
+    const inpName = document.getElementById('inp-name');
+    if (inpName) {
+        inpName.placeholder = currentLang === 'en' ? 'Your Name' : 'Nama Anda';
+        document.getElementById('inp-email').placeholder = currentLang === 'en' ? 'Your Email' : 'Email Anda';
+        document.getElementById('inp-msg').placeholder = currentLang === 'en' ? 'Your Message' : 'Pesan Anda';
+    }
 }
 
-function openProjectModal(title, descKey, tech, icon) {
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('modal-desc').innerText = translations[currentLang][descKey] || descKey;
-    document.getElementById('modal-tech').innerText = tech;
-    document.getElementById('modal-icon').innerText = icon;
-    document.getElementById('modal-icon-bg').innerText = icon;
-
-    const modal = document.getElementById('project-modal');
-    const content = document.getElementById('modal-content');
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modal.classList.add('opacity-100', 'pointer-events-auto');
-    content.classList.remove('scale-95');
-    content.classList.add('scale-100');
-}
-
-function closeProjectModal() {
-    const modal = document.getElementById('project-modal');
-    const content = document.getElementById('modal-content');
-    modal.classList.remove('opacity-100', 'pointer-events-auto');
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    content.classList.remove('scale-100');
-    content.classList.add('scale-95');
+// Fungsi load data ke halaman detail tunggal
+function loadProjectDetail(id) {
+    const project = projectsData[id] || projectsData['1'];
+    document.getElementById('detail-title').innerText = translations[currentLang][project.titleKey];
+    document.getElementById('detail-desc').innerText = translations[currentLang][project.descKey];
+    document.getElementById('detail-tech').innerText = project.tech;
+    document.getElementById('detail-icon').innerText = project.icon;
+    document.getElementById('detail-icon-bg').innerText = project.icon;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
