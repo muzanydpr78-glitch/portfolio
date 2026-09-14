@@ -40,78 +40,79 @@
         </div>
     </nav>
 
-    <!-- SECTION UTAMA DETAIL PROJECT (SOLID STYLE ALA SECTION ABOUT) -->
-    <main class="min-h-screen flex items-center justify-center px-4 md:px-6 pt-28 pb-20 relative">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-neonBlue/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- SECTION UTAMA DETAIL PROJECT (LANGSUNG MENEMPEL DI HALAMAN, TANPA KOTAK KARTU) -->
+    <main class="min-h-screen px-4 md:px-12 pt-32 pb-24 max-w-5xl mx-auto space-y-16 relative">
+        <div class="absolute top-20 right-10 w-80 h-80 bg-neonBlue/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-4xl w-full space-y-8 relative z-10">
+        <!-- 1. Header & Overview Proyek -->
+        <div class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-neonBlue bg-slate-900 border border-slate-800 rounded-full inline-block" data-i18n="modal_badge">Project Showcase Specification</span>
+            </div>
             
-            <!-- Header Info Proyek (Solid Card) -->
-            <div class="bg-slate-900 border border-slate-800 p-6 md:p-10 rounded-3xl space-y-6 shadow-xl">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-slate-800 pb-6">
-                    <div id="detail-icon" class="text-4xl md:text-5xl p-4 bg-slate-950 rounded-2xl border border-slate-800">🌌</div>
-                    <div>
-                        <span class="text-xs uppercase font-mono text-neonBlue tracking-widest" data-i18n="modal_badge">Project Showcase Specification</span>
-                        <h1 id="detail-title" class="text-2xl md:text-4xl font-bold text-slate-100 mt-1">Loading Title...</h1>
-                    </div>
+            <div class="flex flex-col md:flex-row md:items-center gap-6 border-b border-slate-800 pb-8">
+                <div id="detail-icon" class="text-5xl p-5 bg-slate-900 rounded-2xl border border-slate-800 w-fit">🌌</div>
+                <div>
+                    <h1 id="detail-title" class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-100">Loading Title...</h1>
                 </div>
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+                <div class="md:col-span-2 space-y-3">
+                    <h2 class="text-sm font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_overview">Project Overview</h2>
+                    <p id="detail-desc" class="text-slate-300 text-base md:text-lg leading-relaxed">Loading description...</p>
+                </div>
                 <div class="space-y-3">
-                    <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_overview">Project Overview</h2>
-                    <p id="detail-desc" class="text-slate-300 text-sm md:text-base leading-relaxed">Loading description...</p>
-                </div>
-
-                <div class="space-y-3">
-                    <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_tech">Tech Stack Used</h2>
-                    <div id="detail-tech" class="px-4 py-2 rounded-xl bg-slate-950 text-xs md:text-sm text-slate-200 font-mono inline-block border border-slate-800">React • Tailwind</div>
+                    <h2 class="text-sm font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_tech">Tech Stack Used</h2>
+                    <div id="detail-tech" class="px-4 py-2.5 rounded-xl bg-slate-900 text-xs md:text-sm text-slate-200 font-mono inline-block border border-slate-800">React • Tailwind</div>
                 </div>
             </div>
-
-            <!-- SECTION GALERI SCREENSHOT (SOLID BACKGROUND STYLE) -->
-            <div class="bg-slate-900 border border-slate-800 p-6 md:p-10 rounded-3xl space-y-6 shadow-xl">
-                <div class="border-b border-slate-800 pb-4">
-                    <span class="text-xs uppercase font-mono text-cyberCyan tracking-widest" data-i18n="gallery_badge">Visual Documentation</span>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-100 mt-1" data-i18n="gallery_title">Project Screenshot Gallery</h2>
-                </div>
-
-                <!-- Grid Screenshot Asli -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
-                        <div class="h-56 md:h-64 flex items-center justify-center bg-slate-950 overflow-hidden relative">
-                            <!-- Ubah tag <span> ini dengan <img src="nama-file-screenshot-1.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
-                            <span class="text-5xl">💻</span>
-                            <div class="absolute inset-0 bg-neonBlue/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                        </div>
-                        <div class="p-4 bg-slate-900 border-t border-slate-800">
-                            <h3 class="font-bold text-sm text-slate-200" data-i18n="shot_1_title">Dashboard Main Interface</h3>
-                            <p class="text-xs text-slate-400 mt-1" data-i18n="shot_1_desc">Tampilan antarmuka utama sistem dengan arsitektur responsif.</p>
-                        </div>
-                    </div>
-
-                    <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
-                        <div class="h-56 md:h-64 flex items-center justify-center bg-slate-950 overflow-hidden relative">
-                            <!-- Ubah tag <span> ini dengan <img src="nama-file-screenshot-2.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
-                            <span class="text-5xl">📊</span>
-                            <div class="absolute inset-0 bg-cyberPink/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                        </div>
-                        <div class="p-4 bg-slate-900 border-t border-slate-800">
-                            <h3 class="font-bold text-sm text-slate-200" data-i18n="shot_2_title">Analytics & Statistics View</h3>
-                            <p class="text-xs text-slate-400 mt-1" data-i18n="shot_2_desc">Modul analitik data real-time dengan visualisasi modern.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tombol Kembali -->
-            <div class="flex justify-center pt-2">
-                <a href="index.html#project" class="px-8 py-3.5 bg-neonBlue text-center text-white font-semibold rounded-xl lightsaber-glow hover:scale-105 transition shadow-lg text-sm" data-i18n="btn_back_proj">← Kembali ke Daftar Proyek</a>
-            </div>
-
         </div>
+
+        <!-- 2. Galeri Screenshot Proyek (Langsung Menempel di Halaman) -->
+        <div class="space-y-6 pt-6 border-t border-slate-800">
+            <div>
+                <span class="text-xs uppercase font-mono text-cyberCyan tracking-widest" data-i18n="gallery_badge">Visual Documentation</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-100 mt-1" data-i18n="gallery_title">Project Screenshot Gallery</h2>
+            </div>
+
+            <!-- Grid Screenshot Proyek Asli -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+                <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900">
+                    <div class="h-64 md:h-72 flex items-center justify-center bg-slate-950 overflow-hidden relative">
+                        <!-- Ganti <span> ini dengan tag <img src="screenshot1.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
+                        <span class="text-6xl">💻</span>
+                        <div class="absolute inset-0 bg-neonBlue/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-base text-slate-200" data-i18n="shot_1_title">Dashboard Main Interface</h3>
+                        <p class="text-xs text-slate-400 mt-1" data-i18n="shot_1_desc">Tampilan antarmuka utama sistem dengan arsitektur responsif.</p>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900">
+                    <div class="h-64 md:h-72 flex items-center justify-center bg-slate-950 overflow-hidden relative">
+                        <!-- Ganti <span> ini dengan tag <img src="screenshot2.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
+                        <span class="text-6xl">📊</span>
+                        <div class="absolute inset-0 bg-cyberPink/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-base text-slate-200" data-i18n="shot_2_title">Analytics & Statistics View</h3>
+                        <p class="text-xs text-slate-400 mt-1" data-i18n="shot_2_desc">Modul analitik data real-time dengan visualisasi modern.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="pt-8 flex justify-start">
+            <a href="index.html#project" class="px-8 py-3.5 bg-neonBlue text-center text-white font-semibold rounded-xl lightsaber-glow hover:scale-105 transition shadow-lg text-sm" data-i18n="btn_back_proj">← Kembali ke Daftar Proyek</a>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
-    <footer class="py-8 px-6 border-t border-slate-800 bg-slate-900 text-center relative z-10 space-y-2">
+    <footer class="py-10 px-6 border-t border-slate-800 bg-slate-900 text-center relative z-10 space-y-2">
         <p class="text-xs md:text-sm font-semibold text-slate-300">
             <span data-i18n="footer_dev">Designed & Developed with God-Tier Precision by</span> <span class="text-neonBlue">Muhammad Muzany Mulyoutomo</span>.
         </p>
