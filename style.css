@@ -49,7 +49,6 @@ body {
     animation: float-slow 4s infinite ease-in-out;
 }
 
-/* Smooth Shaded Masking untuk Efek Reveal yang Lembut */
 #mask-layer {
     mask-image: radial-gradient(circle 240px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 30%, transparent 100%);
     -webkit-mask-image: radial-gradient(circle 240px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 30%, transparent 100%);
