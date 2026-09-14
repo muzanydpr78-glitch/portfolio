@@ -1,4 +1,3 @@
-// Kamus Bahasa (ID & EN)
 const translations = {
     en: {
         loading: "Initializing Multiverse Portal...",
@@ -53,10 +52,15 @@ const translations = {
         footer_secure: "Multiverse Connection Secure // 2026",
         footer_dev: "Designed & Developed with God-Tier Precision by",
         footer_copy: "&copy; 2026 MUZ.DEV. All Rights Reserved across all dimensions.",
-        modal_badge: "Project Archive Specification",
-        modal_status: "Status: Deployed & Active",
+        modal_badge: "Project Showcase Specification",
         modal_overview: "Project Overview",
         modal_tech: "Tech Stack Used",
+        gallery_badge: "Visual Documentation",
+        gallery_title: "Project Screenshot Gallery",
+        shot_1_title: "Dashboard Main Interface",
+        shot_1_desc: "Main system interface view with responsive architecture.",
+        shot_2_title: "Analytics & Statistics View",
+        shot_2_desc: "Real-time data analytics module with modern visualization.",
         btn_back_proj: "← Back to Projects List"
     },
     id: {
@@ -112,42 +116,26 @@ const translations = {
         footer_secure: "Multiverse Connection Secure // 2026",
         footer_dev: "Designed & Developed with God-Tier Precision by",
         footer_copy: "&copy; 2026 MUZ.DEV. All Rights Reserved across all dimensions.",
-        modal_badge: "Spesifikasi Arsip Proyek",
-        modal_status: "Status: Aktif & Ter-deploy",
+        modal_badge: "Spesifikasi Showcase Proyek",
         modal_overview: "Ringkasan Proyek",
         modal_tech: "Teknologi yang Digunakan",
+        gallery_badge: "Dokumentasi Visual",
+        gallery_title: "Galeri Screenshot Proyek",
+        shot_1_title: "Antarmuka Dashboard Utama",
+        shot_1_desc: "Tampilan layout sistem utama dengan arsitektur responsif penuh.",
+        shot_2_title: "Modul Analitik & Grafik",
+        shot_2_desc: "Tampilan statistik data real-time dengan visualisasi modern.",
         btn_back_proj: "← Kembali ke Daftar Proyek"
     }
 };
 
 let currentLang = 'en';
 
-// Database Proyek untuk Halaman Detail Tunggal
 const projectsData = {
-    '1': {
-        titleKey: 'p1_title',
-        descKey: 'p1_desc',
-        tech: 'React • Tailwind • GSAP',
-        icon: '🌌'
-    },
-    '2': {
-        titleKey: 'p2_title',
-        descKey: 'p2_desc',
-        tech: 'Next.js • Tailwind • ChartJS',
-        icon: '🤖'
-    },
-    '3': {
-        titleKey: 'p3_title',
-        descKey: 'p3_desc',
-        tech: 'React Native • Web3',
-        icon: '📱'
-    },
-    '4': {
-        titleKey: 'p4_title',
-        descKey: 'p4_desc',
-        tech: 'Three.js • Vite • Tailwind',
-        icon: '🛸'
-    }
+    '1': { titleKey: 'p1_title', descKey: 'p1_desc', tech: 'React • Tailwind • GSAP', icon: '🌌' },
+    '2': { titleKey: 'p2_title', descKey: 'p2_desc', tech: 'Next.js • Tailwind • ChartJS', icon: '🤖' },
+    '3': { titleKey: 'p3_title', descKey: 'p3_desc', tech: 'React Native • Web3', icon: '📱' },
+    '4': { titleKey: 'p4_title', descKey: 'p4_desc', tech: 'Three.js • Vite • Tailwind', icon: '🛸' }
 };
 
 function toggleLanguage() {
@@ -170,14 +158,12 @@ function toggleLanguage() {
     }
 }
 
-// Fungsi load data ke halaman detail tunggal
 function loadProjectDetail(id) {
     const project = projectsData[id] || projectsData['1'];
     document.getElementById('detail-title').innerText = translations[currentLang][project.titleKey];
     document.getElementById('detail-desc').innerText = translations[currentLang][project.descKey];
     document.getElementById('detail-tech').innerText = project.tech;
     document.getElementById('detail-icon').innerText = project.icon;
-    document.getElementById('detail-icon-bg').innerText = project.icon;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -275,6 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         container.addEventListener('touchend', () => {
+            maskLayer.spaceList?.remove; // safe guard
             maskLayer.style.setProperty('--mouse-x', '-500px');
             maskLayer.style.setProperty('--mouse-y', '-500px');
         });
