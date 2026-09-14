@@ -1,0 +1,460 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    neonBlue: '#0066FF',
+                    snowWhite: '#F8FAFC',
+                    cyberPurple: '#9333EA',
+                    cyberPink: '#EC4899',
+                    cyberCyan: '#06B6D4',
+                }
+            }
+        }
+    }
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap');
+    body { 
+        font-family: 'Space Grotesk', sans-serif; 
+        scroll-behavior: smooth;
+    }
+    .lightsaber-glow {
+        box-shadow: 0 0 15px rgba(0, 102, 255, 0.6), inset 0 0 15px rgba(0, 102, 255, 0.4);
+    }
+    .glass-panel {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+    }
+    .light .glass-panel {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(0, 102, 255, 0.1);
+    }
+    .fullscreen-glass {
+        background: rgba(2, 6, 23, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    .light .fullscreen-glass {
+        background: rgba(241, 245, 249, 0.95);
+    }
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .animate-glow {
+        animation: pulse-glow 6s infinite ease-in-out;
+    }
+    @keyframes float-slow {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-8px) rotate(1deg); }
+    }
+    .animate-float {
+        animation: float-slow 4s infinite ease-in-out;
+    }
+</style>
+
+<div class="bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden selection:bg-neonBlue selection:text-white transition-colors duration-500" id="body-wrapper">
+
+    <!-- 1. MULTIVERSE LOADING SCREEN -->
+    <div id="loading-screen" class="fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="relative w-32 h-32 mb-8">
+            <div class="absolute inset-0 border-4 border-neonBlue/20 rounded-full animate-ping"></div>
+            <div class="absolute inset-2 border-4 border-t-neonBlue border-transparent rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center font-bold text-xl text-neonBlue" id="loading-text">0%</div>
+        </div>
+        <p class="text-sm tracking-widest text-slate-400 uppercase animate-pulse">Initializing Multiverse Portal...</p>
+    </div>
+
+    <!-- 2. NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-40 px-4 md:px-6 py-4 flex justify-between items-center glass-panel border-b border-white/10">
+        <div class="text-lg md:text-xl font-bold tracking-wider text-neonBlue flex items-center gap-2">
+            <span>MUZ</span><span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse">.DEV</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="#home" class="hover:text-neonBlue transition relative group">Home</a>
+            <a href="#about" class="hover:text-neonBlue transition relative group">About</a>
+            <a href="#project" class="hover:text-neonBlue transition relative group">Project</a>
+            <a href="#skills" class="hover:text-neonBlue transition relative group">My Skills</a>
+            <a href="#contact" class="hover:text-neonBlue transition relative group">Contact Me</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="toggleTheme()" class="p-2 rounded-full glass-panel hover:border-neonBlue transition z-50">
+                <svg class="w-5 h-5 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg glass-panel text-neonBlue focus:outline-none z-50">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Fullscreen Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 fullscreen-glass flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+        <span class="text-xs uppercase tracking-widest text-neonBlue font-mono">-- Multiverse Navigation --</span>
+        <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">Home</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">About</a>
+        <a href="#project" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">Project</a>
+        <a href="#skills" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">My Skills</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-2xl font-bold hover:text-neonBlue transition tracking-wide">Contact Me</a>
+    </div>
+
+    <!-- 3. HERO SECTION -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-28 pb-12 relative">
+        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-neonBlue glass-panel rounded-full">God-Tier Developer Portfolio</span>
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
+                    Hi, I'm <span class="text-neonBlue drop-shadow-[0_0_15px_rgba(0,102,255,0.5)]">Muz</span>.
+                </h1>
+                <p class="text-slate-400 text-lg">Membangun pengalaman web masa depan dengan estetika tingkat tinggi, performa kilat, dan arsitektur kode kelas dunia.</p>
+                <div class="flex gap-4">
+                    <a href="#project" class="px-6 py-3 bg-neonBlue text-white font-semibold rounded-xl lightsaber-glow hover:scale-105 transition transform">Explore Projects</a>
+                    <a href="#contact" class="px-6 py-3 glass-panel font-semibold rounded-xl hover:border-neonBlue transition">Let's Talk</a>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <div id="reveal-container" class="relative w-72 h-96 md:w-80 md:h-[420px] rounded-2xl overflow-hidden glass-panel shadow-2xl cursor-pointer border border-neonBlue/30">
+                    <div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-blue-900/40 to-slate-950">
+                        <div class="w-20 h-20 rounded-full border-2 border-neonBlue flex items-center justify-center mb-4 lightsaber-glow animate-pulse">
+                            <svg class="w-10 h-10 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3 class="text-neonBlue font-bold text-xl tracking-wider">CYBER_ENTITY // 01</h3>
+                        <p class="text-xs text-slate-400 mt-2">SYSTEM: ONLINE<br>CORE: MULTIVERSE ACCELERATOR</p>
+                    </div>
+                    <div id="mask-layer" class="absolute inset-0 bg-slate-800 flex flex-col items-center justify-center transition-all duration-100 select-none border border-white/10" style="clip-path: circle(120px at 50% 50%);">
+                        <div class="w-20 h-20 rounded-full bg-slate-700 flex items-center justify-center mb-4">
+                            <span class="text-3xl">😎</span>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-100">Muz (Human Mode)</h3>
+                        <p class="text-xs text-slate-400 mt-2">Touch / Hover over me</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ABOUT SECTION -->
+    <section id="about" class="min-h-screen flex items-center justify-center px-6 py-20 relative border-t border-white/5 overflow-hidden">
+        <div class="absolute -top-20 -left-20 w-72 h-72 bg-cyberPurple/20 rounded-full blur-3xl animate-glow pointer-events-none"></div>
+        <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-cyberCyan/20 rounded-full blur-3xl animate-glow pointer-events-none" style="animation-delay: 3s;"></div>
+
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative z-10">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-neonBlue via-cyberPurple to-cyberPink rounded-3xl blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                <div class="relative glass-panel p-4 rounded-3xl overflow-hidden flex flex-col items-center text-center">
+                    <div class="w-full h-64 md:h-72 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex flex-col items-center justify-center relative overflow-hidden border border-white/10">
+                        <div class="absolute inset-0 opacity-30 bg-[radial-gradient(#0066FF_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="w-28 h-28 rounded-full bg-neonBlue/10 border-2 border-neonBlue flex items-center justify-center lightsaber-glow mb-3 z-10">
+                            <span class="text-5xl">⚡</span>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-cyan-400 font-mono z-10">Status: Elite Developer</span>
+                    </div>
+                    <div class="mt-4 flex gap-3 w-full justify-around">
+                        <div class="glass-panel px-4 py-2 rounded-xl text-xs"><span class="text-neonBlue font-bold block text-base">5+</span> Years Exp</div>
+                        <div class="glass-panel px-4 py-2 rounded-xl text-xs"><span class="text-cyberPink font-bold block text-base">30+</span> Awards</div>
+                        <div class="glass-panel px-4 py-2 rounded-xl text-xs"><span class="text-cyberCyan font-bold block text-base">100%</span> Success</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-cyberCyan glass-panel rounded-full">System Profile // 01</span>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Architecting Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-cyberPink">Multiverse</span>.</h2>
+                <p class="text-slate-300 text-base leading-relaxed">
+                    Halo! Gue <strong class="text-neonBlue">Muz</strong>. Bukan sekadar nulis kode, tapi merajut pengalaman visual interaktif yang bikin decak kagum. Berbasis di persimpangan seni desain futuristik dan performa teknologi mutakhir.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="glass-panel p-4 rounded-2xl border-l-4 border-neonBlue">
+                        <h4 class="font-bold text-sm text-slate-100">Clean Architecture</h4>
+                        <p class="text-xs text-slate-400 mt-1">Struktur kode scalable & efisien.</p>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl border-l-4 border-cyberPink">
+                        <h4 class="font-bold text-sm text-slate-100">Immersive UI/UX</h4>
+                        <p class="text-xs text-slate-400 mt-1">Animasi mulus 60+ FPS.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROJECT SECTION -->
+    <section id="project" class="min-h-screen flex flex-col items-center justify-center px-6 py-24 relative border-t border-white/5">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-neonBlue/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl w-full space-y-8 relative z-10">
+            <div class="text-center space-y-2">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-neonBlue glass-panel rounded-full">Showcase // 02</span>
+                <h2 class="text-3xl md:text-4xl font-bold">Featured Projects</h2>
+                <p class="text-slate-400 text-sm">Eksperimen kode dan mahakarya digital dengan performa tingkat dewa.</p>
+            </div>
+
+            <!-- Floating Category Navbar inside Project Section -->
+            <div class="flex justify-center">
+                <div class="glass-panel p-2 rounded-2xl flex flex-wrap gap-2 justify-center shadow-xl border border-white/10">
+                    <button onclick="filterProjects('all')" id="btn-all" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-xl bg-neonBlue text-white lightsaber-glow transition">All Projects</button>
+                    <button onclick="filterProjects('multiverse')" id="btn-multiverse" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-xl hover:text-neonBlue transition">Multiverse UI</button>
+                    <button onclick="filterProjects('ai')" id="btn-ai" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-xl hover:text-cyberPink transition">AI & Neural</button>
+                    <button onclick="filterProjects('mobile')" id="btn-mobile" class="px-4 py-2 text-xs md:text-sm font-semibold rounded-xl hover:text-cyberCyan transition">Mobile App</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4" id="project-grid">
+                <div class="project-card glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-neonBlue transition duration-300" data-category="multiverse">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-neonBlue/20 rounded-full blur-2xl group-hover:bg-neonBlue/40 transition"></div>
+                    <div class="h-44 rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 mb-4 flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <span class="text-4xl">🌌</span>
+                        <span class="absolute bottom-3 left-3 px-2.5 py-1 text-[10px] uppercase font-mono bg-neonBlue/20 text-neonBlue rounded-lg border border-neonBlue/30">Multiverse UI</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1 text-slate-100 group-hover:text-neonBlue transition">Multiverse Portal Engine</h3>
+                    <p class="text-slate-400 text-sm mb-4">Sistem animasi portal 3D berbasis web dengan distorsi ruang dan waktu menggunakan GSAP.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500 font-mono">React • Tailwind • GSAP</span>
+                        <a href="#project" class="px-3 py-1.5 text-xs font-semibold glass-panel rounded-xl hover:bg-neonBlue hover:text-white transition">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-cyberPink transition duration-300" data-category="ai">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-cyberPink/20 rounded-full blur-2xl group-hover:bg-cyberPink/40 transition"></div>
+                    <div class="h-44 rounded-2xl bg-gradient-to-br from-slate-900 to-purple-950 mb-4 flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <span class="text-4xl">🤖</span>
+                        <span class="absolute bottom-3 left-3 px-2.5 py-1 text-[10px] uppercase font-mono bg-cyberPink/20 text-cyberPink rounded-lg border border-cyberPink/30">AI & Neural</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1 text-slate-100 group-hover:text-cyberPink transition">Cyber Neural Core</h3>
+                    <p class="text-slate-400 text-sm mb-4">Dashboard analisis data kecerdasan buatan dengan efek glassmorphism dan grafik real-time.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500 font-mono">Next.js • Tailwind • ChartJS</span>
+                        <a href="#project" class="px-3 py-1.5 text-xs font-semibold glass-panel rounded-xl hover:bg-cyberPink hover:text-white transition">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-cyberCyan transition duration-300" data-category="mobile">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-cyberCyan/20 rounded-full blur-2xl group-hover:bg-cyberCyan/40 transition"></div>
+                    <div class="h-44 rounded-2xl bg-gradient-to-br from-slate-900 to-cyan-950 mb-4 flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <span class="text-4xl">📱</span>
+                        <span class="absolute bottom-3 left-3 px-2.5 py-1 text-[10px] uppercase font-mono bg-cyberCyan/20 text-cyberCyan rounded-lg border border-cyberCyan/30">Mobile App</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1 text-slate-100 group-hover:text-cyberCyan transition">Quantum Wallet OS</h3>
+                    <p class="text-slate-400 text-sm mb-4">Aplikasi dompet kripto seluler dengan antarmuka futuristik dan enkripsi kuantum tingkat tinggi.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500 font-mono">React Native • Web3</span>
+                        <a href="#project" class="px-3 py-1.5 text-xs font-semibold glass-panel rounded-xl hover:bg-cyberCyan hover:text-white transition">Live Demo →</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-purple-500 transition duration-300" data-category="multiverse">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition"></div>
+                    <div class="h-44 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 mb-4 flex items-center justify-center border border-white/10 relative overflow-hidden">
+                        <span class="text-4xl">🛸</span>
+                        <span class="absolute bottom-3 left-3 px-2.5 py-1 text-[10px] uppercase font-mono bg-purple-500/20 text-purple-400 rounded-lg border border-purple-500/30">Multiverse UI</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-1 text-slate-100 group-hover:text-purple-400 transition">Stellar Zero Workspace</h3>
+                    <p class="text-slate-400 text-sm mb-4">Lingkungan kerja virtual berbasis cloud dengan gestur kursor dan tema luar angkasa.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-500 font-mono">Three.js • Vite • Tailwind</span>
+                        <a href="#project" class="px-3 py-1.5 text-xs font-semibold glass-panel rounded-xl hover:bg-purple-600 hover:text-white transition">Live Demo →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SKILLS SECTION -->
+    <section id="skills" class="min-h-screen flex items-center justify-center px-6 py-24 relative border-t border-white/5 overflow-hidden">
+        <div class="absolute top-10 right-10 w-80 h-80 bg-cyberCyan/15 rounded-full blur-3xl pointer-events-none animate-glow"></div>
+
+        <div class="max-w-5xl w-full space-y-10 relative z-10">
+            <div class="text-center space-y-2">
+                <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-cyberCyan glass-panel rounded-full">Arsenal // 03</span>
+                <h2 class="text-3xl md:text-4xl font-bold">My Tech Skills</h2>
+                <p class="text-slate-400 text-sm">Spesifikasi inti teknologi dan sistem kerangka kerja yang dikuasai.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="glass-panel p-6 rounded-3xl flex flex-col items-center text-center animate-float group hover:border-neonBlue transition duration-300">
+                    <div class="w-16 h-16 rounded-2xl bg-neonBlue/10 border border-neonBlue/30 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 lightsaber-glow transition">
+                        ⚛️
+                    </div>
+                    <h3 class="font-bold text-base mb-1 text-slate-100">React & Next.js</h3>
+                    <span class="text-[11px] text-neonBlue font-mono">Frontend Core</span>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-neonBlue h-full w-[95%] lightsaber-glow"></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl flex flex-col items-center text-center animate-float group hover:border-cyberCyan transition duration-300" style="animation-delay: 1s;">
+                    <div class="w-16 h-16 rounded-2xl bg-cyberCyan/10 border border-cyberCyan/30 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 lightsaber-glow transition">
+                        🎨
+                    </div>
+                    <h3 class="font-bold text-base mb-1 text-slate-100">Tailwind CSS</h3>
+                    <span class="text-[11px] text-cyberCyan font-mono">UI Styling</span>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-cyberCyan h-full w-[98%] lightsaber-glow"></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl flex flex-col items-center text-center animate-float group hover:border-cyberPink transition duration-300" style="animation-delay: 2s;">
+                    <div class="w-16 h-16 rounded-2xl bg-cyberPink/10 border border-cyberPink/30 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 lightsaber-glow transition">
+                        ⚡
+                    </div>
+                    <h3 class="font-bold text-base mb-1 text-slate-100">GSAP Animation</h3>
+                    <span class="text-[11px] text-cyberPink font-mono">Motion Engine</span>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-cyberPink h-full w-[90%] lightsaber-glow"></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl flex flex-col items-center text-center animate-float group hover:border-purple-400 transition duration-300" style="animation-delay: 1.5s;">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 lightsaber-glow transition">
+                        🧠
+                    </div>
+                    <h3 class="font-bold text-base mb-1 text-slate-100">UI/UX Arch</h3>
+                    <span class="text-[11px] text-purple-400 font-mono">Design System</span>
+                    <div class="w-full bg-slate-800 h-1.5 rounded-full mt-4 overflow-hidden">
+                        <div class="bg-purple-500 h-full w-[92%] lightsaber-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CONTACT SECTION -->
+    <section id="contact" class="min-h-screen flex items-center justify-center px-6 py-20 relative border-t border-white/5">
+        <div class="max-w-xl w-full glass-panel p-8 rounded-3xl space-y-6 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-neonBlue/20 rounded-full blur-2xl pointer-events-none"></div>
+            <h2 class="text-3xl font-bold text-neonBlue">04 // Contact Me</h2>
+            <p class="text-slate-400 text-sm">Tertarik berkolaborasi atau membangun proyek digital masa depan bersama? Hubungi saya.</p>
+            <div class="space-y-4">
+                <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-slate-900/50 rounded-xl border border-white/10 focus:border-neonBlue outline-none text-sm transition">
+                <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-slate-900/50 rounded-xl border border-white/10 focus:border-neonBlue outline-none text-sm transition">
+                <textarea rows="4" placeholder="Your Message" class="w-full px-4 py-3 bg-slate-900/50 rounded-xl border border-white/10 focus:border-neonBlue outline-none text-sm transition"></textarea>
+                <button class="w-full py-3 bg-neonBlue text-white font-semibold rounded-xl lightsaber-glow hover:scale-[1.02] transition transform">Send Transmission</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FUTURISTIC FOOTER COPYRIGHT -->
+    <footer class="py-10 px-6 border-t border-white/10 glass-panel text-center relative z-10 space-y-3">
+        <div class="flex justify-center items-center gap-2 text-xs text-neonBlue font-mono uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-neonBlue animate-ping"></span>
+            <span>Multiverse Connection Secure // 2026</span>
+        </div>
+        <p class="text-sm font-semibold text-slate-200">
+            Designed & Developed with God-Tier Precision by <span class="text-neonBlue drop-shadow-[0_0_10px_rgba(0,102,255,0.6)]">Muhammad Muzany Mulyoutomo</span>.
+        </p>
+        <p class="text-xs text-slate-500">
+            &copy; 2026 MUZ.DEV. All Rights Reserved across all dimensions.
+        </p>
+    </footer>
+
+</div>
+
+<script>
+    // 1. Loading Screen Logic
+    window.addEventListener('DOMContentLoaded', () => {
+        let progress = 0;
+        const loadingText = document.getElementById('loading-text');
+        const loadingScreen = document.getElementById('loading-screen');
+
+        const interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 25) + 15;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => loadingScreen.style.display = 'none', 700);
+                }
+            }
+            if (loadingText) {
+                loadingText.innerText = progress + '%';
+            }
+        }, 80);
+    });
+
+    // 2. Fullscreen Mobile Menu Toggle Logic
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const isOpen = menu.classList.contains('opacity-100');
+        if (isOpen) {
+            menu.classList.remove('opacity-100', 'pointer-events-auto');
+            menu.classList.add('opacity-0', 'pointer-events-none');
+        } else {
+            menu.classList.remove('opacity-0', 'pointer-events-none');
+            menu.classList.add('opacity-100', 'pointer-events-auto');
+        }
+    }
+
+    // 3. Project Filter Category Logic
+    function filterProjects(category) {
+        const cards = document.querySelectorAll('.project-card');
+        document.querySelectorAll('.glass-panel button[onclick^="filterProjects"]').forEach(btn => {
+            btn.className = "px-4 py-2 text-xs md:text-sm font-semibold rounded-xl hover:text-neonBlue transition";
+        });
+        const activeBtn = document.getElementById(`btn-${category}`);
+        if(activeBtn) {
+            activeBtn.className = "px-4 py-2 text-xs md:text-sm font-semibold rounded-xl bg-neonBlue text-white lightsaber-glow transition";
+        }
+        cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.style.display = 'block';
+                setTimeout(() => card.style.opacity = '1', 50);
+            } else {
+                card.style.opacity = '0';
+                setTimeout(() => card.style.display = 'none', 300);
+            }
+        });
+    }
+
+    // 4. Theme Toggle Logic
+    function toggleTheme() {
+        const html = document.documentElement;
+        html.classList.toggle('light');
+        const wrapper = document.getElementById('body-wrapper');
+        const isLight = html.classList.contains('light');
+        if (isLight) {
+            wrapper.className = "bg-slate-100 text-slate-950 min-h-screen overflow-x-hidden selection:bg-neonBlue selection:text-white transition-colors duration-500 light";
+        } else {
+            wrapper.className = "bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden selection:bg-neonBlue selection:text-white transition-colors duration-500";
+        }
+    }
+
+    // 5. Robot Hover & Touch Reveal Mask Tracking
+    window.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('reveal-container');
+        const maskLayer = document.getElementById('mask-layer');
+
+        if (container && maskLayer) {
+            function updateMaskPosition(clientX, clientY) {
+                const rect = container.getBoundingClientRect();
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                maskLayer.style.clipPath = `circle(80px at ${x}px ${y}px)`;
+            }
+
+            container.addEventListener('mousemove', (e) => {
+                updateMaskPosition(e.clientX, e.clientY);
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                if(e.touches.length > 0) {
+                    updateMaskPosition(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, {passive: true});
+
+            container.addEventListener('mouseleave', () => {
+                maskLayer.style.clipPath = `circle(120px at 50% 50%)`;
+            });
+
+            container.addEventListener('touchend', () => {
+                maskLayer.style.clipPath = `circle(120px at 50% 50%)`;
+            });
+        }
+    });
+</script>
