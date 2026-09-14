@@ -115,7 +115,7 @@
     <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-28 pb-12 relative overflow-hidden">
         
         <!-- DUAL IMAGE FULLSCREEN BACKGROUND REVEAL -->
-        <div id="reveal-container" class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <div id="reveal-container" class="absolute inset-0 w-full h-full z-0 cursor-crosshair">
             <!-- Layer Bawah: Hitam Putih Fullscreen -->
             <div class="absolute inset-0 w-full h-full">
                 <img src="bw.png" alt="Muz BW" class="w-full h-full object-cover brightness-[0.4]">
@@ -123,19 +123,19 @@
             </div>
             
             <!-- Layer Atas: Berwarna dengan Shaded Radial Gradient Mask -->
-            <div id="mask-layer" class="absolute inset-0 w-full h-full overflow-hidden select-none">
+            <div id="mask-layer" class="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
                 <img src="color.png" alt="Muz Color" class="w-full h-full object-cover">
             </div>
         </div>
 
-        <!-- Content di Atas Background (Diberi z-20 agar selalu di atas dan bisa diklik) -->
-        <div class="max-w-4xl w-full relative z-20 text-center md:text-left space-y-6 pointer-events-auto">
-            <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-neonBlue glass-panel rounded-full inline-block">God-Tier Developer Portfolio</span>
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
+        <!-- Content di Atas Background -->
+        <div class="max-w-4xl w-full relative z-20 text-center md:text-left space-y-6 pointer-events-none">
+            <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-neonBlue glass-panel rounded-full inline-block pointer-events-auto">God-Tier Developer Portfolio</span>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight pointer-events-auto">
                 Hi, I'm <span class="text-neonBlue drop-shadow-[0_0_15px_rgba(0,102,255,0.8)]">Muz</span>.
             </h1>
-            <p class="text-slate-300 text-lg max-w-xl">Membangun pengalaman web masa depan dengan estetika tingkat tinggi, performa kilat, dan arsitektur kode kelas dunia.</p>
-            <div class="flex gap-4 justify-center md:justify-start">
+            <p class="text-slate-300 text-lg max-w-xl pointer-events-auto">Membangun pengalaman web masa depan dengan estetika tingkat tinggi, performa kilat, dan arsitektur kode kelas dunia.</p>
+            <div class="flex gap-4 justify-center md:justify-start pointer-events-auto">
                 <a href="#project" class="px-6 py-3 bg-neonBlue text-white font-semibold rounded-xl lightsaber-glow hover:scale-105 transition transform shadow-lg">Explore Projects</a>
                 <a href="#contact" class="px-6 py-3 glass-panel font-semibold rounded-xl hover:border-neonBlue transition">Let's Talk</a>
             </div>
