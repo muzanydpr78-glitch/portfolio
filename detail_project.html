@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details // Muz.dev</title>
+    <title>Project Showcase // Muz.dev</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,8 +27,8 @@
 
     <!-- NAVBAR SIMPLE -->
     <nav class="fixed top-0 left-0 w-full z-40 px-4 md:px-6 py-4 flex justify-between items-center glass-panel border-b border-white/10">
-        <a href="index.html" class="text-base md:text-xl font-bold tracking-wider text-neonBlue flex items-center gap-2">
-            <span>← BACK</span><span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse">.DEV</span>
+        <a href="index.html#project" class="text-base md:text-xl font-bold tracking-wider text-neonBlue flex items-center gap-2">
+            <span>← KEMBALI</span><span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse">.DEV</span>
         </a>
         <div class="flex items-center gap-2 md:gap-3">
             <button onclick="toggleLanguageDetail()" id="lang-btn" class="px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl glass-panel text-[11px] md:text-xs font-bold text-neonBlue hover:border-neonBlue transition z-50 uppercase">
@@ -40,41 +40,71 @@
         </div>
     </nav>
 
-    <!-- MAIN DETAIL CONTENT CONTAINER -->
+    <!-- SECTION UTAMA DETAIL PROJECT (LAYOUT LUAS SEPERTI SECTION ABOUT) -->
     <main class="min-h-screen flex items-center justify-center px-4 md:px-6 pt-28 pb-20 relative">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-neonBlue/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-neonBlue/15 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-3xl w-full glass-panel p-6 md:p-10 rounded-3xl relative border border-neonBlue/30 shadow-2xl space-y-8 z-10">
+        <div class="max-w-4xl w-full space-y-10 relative z-10">
             
-            <div class="flex items-center gap-4 border-b border-white/10 pb-6">
-                <div id="detail-icon" class="text-4xl md:text-5xl p-4 glass-panel rounded-2xl border border-neonBlue/30">🌌</div>
-                <div>
-                    <span class="text-xs uppercase font-mono text-neonBlue tracking-widest" data-i18n="modal_badge">Project Archive Specification</span>
-                    <h1 id="detail-title" class="text-2xl md:text-4xl font-bold text-slate-100 mt-1">Loading Title...</h1>
+            <!-- Header Info Proyek -->
+            <div class="glass-panel p-6 md:p-10 rounded-3xl border border-neonBlue/30 space-y-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 border-b border-white/10 pb-6">
+                    <div id="detail-icon" class="text-4xl md:text-5xl p-4 glass-panel rounded-2xl border border-neonBlue/30">🌌</div>
+                    <div>
+                        <span class="text-xs uppercase font-mono text-neonBlue tracking-widest" data-i18n="modal_badge">Project Showcase Specification</span>
+                        <h1 id="detail-title" class="text-2xl md:text-4xl font-bold text-slate-100 mt-1">Loading Title...</h1>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_overview">Project Overview</h2>
+                    <p id="detail-desc" class="text-slate-300 text-sm md:text-base leading-relaxed">Loading description...</p>
+                </div>
+
+                <div class="space-y-3">
+                    <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_tech">Tech Stack Used</h2>
+                    <div id="detail-tech" class="px-4 py-2 rounded-xl glass-panel text-xs md:text-sm text-slate-200 font-mono inline-block border border-white/10">React • Tailwind</div>
                 </div>
             </div>
 
-            <!-- Banner Mockup View -->
-            <div class="h-56 md:h-72 rounded-2xl bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 flex items-center justify-center border border-white/10 relative overflow-hidden shadow-inner">
-                <span class="text-7xl md:text-8xl" id="detail-icon-bg">🌌</span>
-                <div class="absolute bottom-4 right-4 px-3 py-1.5 text-xs font-mono bg-neonBlue/20 text-neonBlue rounded-xl border border-neonBlue/30" data-i18n="modal_status">Status: Deployed & Active</div>
+            <!-- SECTION GALERI SCREENSHOT HASIL PROJECT (AREA KHUSUS GAMBAR ASLI) -->
+            <div class="glass-panel p-6 md:p-10 rounded-3xl border border-white/10 space-y-6">
+                <div class="border-b border-white/10 pb-4">
+                    <span class="text-xs uppercase font-mono text-cyberCyan tracking-widest" data-i18n="gallery_badge">Visual Documentation</span>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-100 mt-1" data-i18n="gallery_title">Project Screenshot Gallery</h2>
+                </div>
+
+                <!-- Grid Screenshot Asli (Ganti 'src' dengan file gambar screenshot Kak Muz) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group relative overflow-hidden rounded-2xl border border-white/10 glass-panel bg-slate-900/80">
+                        <div class="h-56 md:h-64 flex items-center justify-center bg-slate-950 overflow-hidden relative">
+                            <!-- Ubah tag <span ini menjadi <img src="screenshot1.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
+                            <span class="text-5xl">💻</span>
+                            <div class="absolute inset-0 bg-neonBlue/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-sm text-slate-200" data-i18n="shot_1_title">Dashboard Main Interface</h3>
+                            <p class="text-xs text-slate-400 mt-1" data-i18n="shot_1_desc">Tampilan antarmuka utama sistem dengan arsitektur responsif.</p>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-2xl border border-white/10 glass-panel bg-slate-900/80">
+                        <div class="h-56 md:h-64 flex items-center justify-center bg-slate-950 overflow-hidden relative">
+                            <!-- Ubah tag <span ini menjadi <img src="screenshot2.png" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"> jika ingin pakai gambar asli -->
+                            <span class="text-5xl">📊</span>
+                            <div class="absolute inset-0 bg-cyberPink/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-sm text-slate-200" data-i18n="shot_2_title">Analytics & Statistics View</h3>
+                            <p class="text-xs text-slate-400 mt-1" data-i18n="shot_2_desc">Modul analitik data real-time dengan visualisasi modern.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Overview Section -->
-            <div class="space-y-3">
-                <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_overview">Project Overview</h2>
-                <p id="detail-desc" class="text-slate-300 text-sm md:text-base leading-relaxed">Loading description...</p>
-            </div>
-
-            <!-- Tech Stack Section -->
-            <div class="space-y-3">
-                <h2 class="text-sm md:text-base font-bold text-neonBlue uppercase tracking-wider" data-i18n="modal_tech">Tech Stack Used</h2>
-                <div id="detail-tech" class="px-4 py-2.5 rounded-xl glass-panel text-xs md:text-sm text-slate-200 font-mono inline-block border border-white/10">React • Tailwind</div>
-            </div>
-
-            <!-- Action Navigation -->
-            <div class="pt-4 flex flex-col sm:flex-row gap-4">
-                <a href="index.html#project" class="flex-1 py-3.5 bg-neonBlue text-center text-white font-semibold rounded-xl lightsaber-glow hover:scale-[1.02] transition shadow-lg text-sm" data-i18n="btn_back_proj">← Kembali ke Daftar Proyek</a>
+            <!-- Tombol Kembali -->
+            <div class="flex justify-center pt-2">
+                <a href="index.html#project" class="px-8 py-3.5 bg-neonBlue text-center text-white font-semibold rounded-xl lightsaber-glow hover:scale-105 transition shadow-lg text-sm" data-i18n="btn_back_proj">← Kembali ke Daftar Proyek</a>
             </div>
 
         </div>
@@ -90,7 +120,6 @@
 
     <script src="script.js"></script>
     <script>
-        // Logika Khusus untuk Halaman Detail berdasarkan parameter ID URL (?id=...)
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const projectId = urlParams.get('id') || '1';
@@ -98,7 +127,7 @@
         });
 
         function toggleLanguageDetail() {
-            toggleLanguage(); // Memanggil fungsi global dari script.js
+            toggleLanguage();
             const urlParams = new URLSearchParams(window.location.search);
             loadProjectDetail(urlParams.get('id') || '1');
         }
